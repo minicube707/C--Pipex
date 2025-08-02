@@ -1,0 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fmotte <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/29 10:28:26 by fmotte            #+#    #+#             */
+/*   Updated: 2025/05/03 13:55:30 by fmotte           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+static char	*ft_strncpy(char *dest, const char *src, unsigned int n)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < n && src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
+}
+
+char	*ft_strdup(const char *src)
+{
+	char	*tab;
+	int		len;
+
+	len = ft_strlen(src);
+	len++;
+	tab = malloc(sizeof(char) * len);
+	if (tab == NULL)
+		return (NULL);
+	ft_strncpy(tab, src, len);
+	return (tab);
+}
