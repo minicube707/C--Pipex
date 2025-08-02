@@ -5,7 +5,6 @@ FILE_NAMES = pipex \
 			stack \
 			ft_strmultijoin \
 			ft_getenv \
-			ft_getenv_utils
 				
 SRC_PATH = .
 OBJ_PATH = .

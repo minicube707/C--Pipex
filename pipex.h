@@ -26,13 +26,8 @@ t_stack_string	*push_stack(t_stack_string *st, char *string);
 t_stack_string	*clear_stack(t_stack_string *st);
 t_stack_string	*pop_stack(t_stack_string *st);
 
-/*Ft_multijion*/
-char	*ft_strmultijoin(char **s2);
 
 /*Ft_getenv*/
 int ft_getenv(t_stack_string **stack, char **envp, char *var);
-char **fill_tab(char **tab, char *string);
-char **create_tab(char **tab_env, char **tab, char *res);
-void manage_free(char **tab_env, char **tab, char *res);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 23:31:24 by florent           #+#    #+#             */
-/*   Updated: 2025/08/02 23:34:46 by florent          ###   ########.fr       */
+/*   Updated: 2025/08/02 23:43:44 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 static char *get_environnement(char **envp, char *var);
 static int fill_tab_env(t_stack_string **stack, char **tab_env);
-char **fill_tab(char **tab, char *string);
-char **create_tab(char **tab_env, char **tab, char *res);
+static  void manage_free(char **tab_env, char *res);
 
 int ft_getenv(t_stack_string **stack, char **envp, char *var)
 {   
@@ -31,11 +30,11 @@ int ft_getenv(t_stack_string **stack, char **envp, char *var)
     if (tab_env == NULL)
         return (1);
     error = fill_tab_env(stack, tab_env);
-    manage_free(tab_env, NULL, NULL);
+    manage_free(tab_env, NULL);
     return (error);
 }
 
-void manage_free(char **tab_env, char **tab, char *res)
+static void manage_free(char **tab_env, char *res)
 {
     int i;
 
@@ -50,11 +49,6 @@ void manage_free(char **tab_env, char **tab, char *res)
         free(tab_env);
         tab_env = NULL;
     }
-    if (tab != NULL)
-    {
-        free(tab);
-        tab = NULL;
-    } 
     if (res != NULL)
     {
         free(res);
@@ -74,27 +68,21 @@ static char *get_environnement(char **envp, char *var)
 
 static int fill_tab_env(t_stack_string **stack, char **tab_env)
 {
-    char    **tab;
     char    *res;
     int i;
 
     i = -1;
     res = NULL;
-    tab = NULL;
     while (tab_env[++i])
     {
-        tab = create_tab(tab_env, tab, res);
-        if (tab == NULL)
-            return (1);
-        tab = fill_tab(tab, tab_env[i]);
-        res = ft_strmultijoin(tab);
+        res = ft_strjoin(tab_env[i], "/");
         if (res == NULL)
         {
-            manage_free(tab_env, tab, res);
+            manage_free(tab_env, res);
             return (1);
         }
         *stack = push_stack(*stack, res);
-        manage_free(NULL, tab, res);
+        manage_free(NULL, res);
     }   
     return (0);
 }
