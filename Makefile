@@ -1,10 +1,13 @@
 
 CC = cc -Wall -Wextra -Werror
 
-FILE_NAMES = pipex \
+FILE_NAMES = parsing_argument \
+			pipex \
 			stack \
-			ft_strmultijoin \
+			stack_utils \
 			ft_getenv \
+			free_all
+			
 				
 SRC_PATH = .
 OBJ_PATH = .

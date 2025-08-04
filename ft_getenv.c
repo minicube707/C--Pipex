@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 23:31:24 by florent           #+#    #+#             */
-/*   Updated: 2025/08/02 23:43:44 by florent          ###   ########.fr       */
+/*   Updated: 2025/08/04 17:43:44 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int ft_getenv(t_stack_string **stack, char **envp, char *var)
     if (tab_env == NULL)
         return (1);
     error = fill_tab_env(stack, tab_env);
-    manage_free(tab_env, NULL);
     return (error);
 }
 
@@ -82,7 +81,13 @@ static int fill_tab_env(t_stack_string **stack, char **tab_env)
             return (1);
         }
         *stack = push_stack(*stack, res);
+        if (*stack == NULL)
+        {
+            manage_free(tab_env, res);
+            return (1);
+        }
         manage_free(NULL, res);
     }   
+    manage_free(tab_env, NULL);
     return (0);
 }
