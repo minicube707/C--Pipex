@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 23:39:39 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/04 23:47:56 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/05 02:57:47 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,16 @@ int lenght_super_list(t_super_list *li)
 */
 void print_super_list(t_super_list *li)
 {
-    
     if(is_empty_super_list(li))
     {
         printf("La Super list est vide, rien a afficher \n");
         return;
     }
-
-    while (li != NULL){
-        print_list(li->head_list);
-        li = li -> next;
+    while (li != NULL)
+    {
+        print_tab(li->tab_string);  
+        li = li->next;
     }
-    printf("\n");
 }
 
 /*--------------------------------------------------*/
@@ -78,33 +76,32 @@ void print_super_list(t_super_list *li)
 * @param val Un entier
 * @return La nouvelle List
 */
-t_super_list *put_super_back(t_super_list *su, t_list *li)
+t_super_list *put_super_back(t_super_list *su, char **tab)
 {
-
+    t_super_list  *tmp;
     t_super_list *element;
-    element = malloc(sizeof(*element));
     
+    element = malloc(sizeof(*element));
     if(element == NULL)
     {
         ft_putstr_fd("Error: the file doesnt exit\n", 1);
         return (NULL);
     }
-
-    element->head_list = li;
-    element->next = NULL;
-
-    if (is_empty_super_list(li))
-        return element;
-
-    t_super_list  *temp;
-    temp = li;
-
-    while (temp->next != NULL){
-        temp = temp->next;
+    element->tab_string = copy_tab(tab);
+    if (element->tab_string == NULL)
+    {
+        clear_super_list(su);
+        return (NULL);
     }
-
-    temp->next = element;
-    return li;   
+    element->next = NULL;
+    if (is_empty_super_list(su))
+        return element;
+    tmp = su;
+    while (tmp->next != NULL){
+        tmp = tmp->next;
+    }
+    tmp->next = element;
+    return su;   
 }
 
 /*--------------------------------------------------*/
@@ -122,10 +119,10 @@ t_super_list *pop_super_front(t_super_list *li)
         return li;
         
     new_first = li->next;
-    clear_list(li->head_list);
+    clear_tab(li->tab_string);
+    li->tab_string = NULL;
     free(li);
     li = NULL;
-
     return new_first;
 }
 
@@ -144,4 +141,5 @@ t_super_list *clear_super_list(t_super_list *li)
     while (li != NULL){
         li = pop_super_front(li);
     }
+    return (li);
 }

@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:23:06 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/04 22:25:03 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/05 01:00:25 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 static int parsing_infile(char **argv, t_file *file);
 static int parsing_outfile(char **argv, t_file *file, int i);
-static int parsing_command(int argc, char **argv, t_stack_string **stack);
+static int parsing_command_line(int argc, char **argv, t_stack_string **stack);
 
 int parsing_argument(int argc, char **argv, t_file *file, t_stack_string **stack)
 {
     
     if (argc < 3)
     {
-        ft_putstr_fd("Error: insufficient number of elements", 1); 
+        ft_putstr_fd("Error: insufficient number of elements\n", 1); 
         return (1);
     }
     if (parsing_infile(argv, file))
         return (1);
-    if (parsing_command(argc, argv, stack))
+    if (parsing_command_line(argc, argv, stack))
     {
         free(file->infile);
         return (1);
@@ -62,7 +62,7 @@ static int parsing_outfile(char **argv, t_file *file, int i)
     return (0);
 }
 
-static int parsing_command(int argc, char **argv, t_stack_string **stack)
+static int parsing_command_line(int argc, char **argv, t_stack_string **stack)
 {   
     int i;
 

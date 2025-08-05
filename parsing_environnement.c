@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getenv.c                                        :+:      :+:    :+:   */
+/*   parsing_environnement.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 23:31:24 by florent           #+#    #+#             */
-/*   Updated: 2025/08/04 17:43:44 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/05 03:26:46 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char *get_environnement(char **envp, char *var);
 static int fill_tab_env(t_stack_string **stack, char **tab_env);
 static  void manage_free(char **tab_env, char *res);
 
-int ft_getenv(t_stack_string **stack, char **envp, char *var)
+int parsing_environnement(t_stack_string **stack, char **envp, char *var)
 {   
     char    *env_path;
     char    **tab_env;
@@ -39,15 +39,7 @@ static void manage_free(char **tab_env, char *res)
 
     i = -1;
     if (tab_env != NULL)
-    {
-        while(tab_env[++i] != NULL)
-        {
-            free(tab_env[i]);
-            tab_env[i] = NULL;
-        }
-        free(tab_env);
-        tab_env = NULL;
-    }
+        clear_tab(tab_env);
     if (res != NULL)
     {
         free(res);
