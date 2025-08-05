@@ -33,6 +33,7 @@ typedef struct s_super_list
 {
 	char					**tab_string;
 	struct s_super_list		*next;
+
 }							t_super_list;
 
 /*Stack*/
@@ -62,15 +63,17 @@ int							parsing_environnement(t_stack_string **stack, char **envp,
 								char *var);
 
 /*Parsing Argument*/
-int							parsing_argument(int argc, char **argv,
-								t_file *file, t_stack_string **stack);
+int parsing_argument(int argc, char **argv, t_file *file, t_super_list **super_list);
 
 /*Parsing Command*/
-int							parsing_command(t_stack_string **stack,
-								t_super_list **super_list);
+int parsing_command(t_stack_string **stack_env,  t_super_list **super_list);
 
 /*Free file*/
-void						free_all(t_stack_string *stack_env,
-								t_stack_string *stack_cmd, t_file *file);
+void    free_file(t_file *file);
 
+/*Check Command*/
+int check_command(t_stack_string **stack, char **tab);
+
+/*Execute*/
+int execute_all(t_super_list **super_list, char **envp);
 #endif

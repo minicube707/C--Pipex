@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 02:09:04 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/05 03:24:21 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/05 14:19:51 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void    close_all_pipe(int **my_pipe, int nb_cmd)
     int i;
     
     i = 0;
-    while (i < nb_cmd -1 )
+    while (i < nb_cmd)
     {
         close(my_pipe[i][1]);
         close(my_pipe[i][0]);
@@ -65,7 +65,7 @@ int execute_all(t_super_list **super_list, char **envp)
     nb_cmd = lenght_super_list(tmp);
     pipe(my_pipe[0]);
     pid[0] = fork();
-    if (my_pipe == 0)
+    if (pid[0] == 0)
     {
         close(my_pipe[0][0]);
         execute_command(tmp->tab_string, envp, STDIN_FILENO, my_pipe[0][1]);
@@ -79,21 +79,20 @@ int execute_all(t_super_list **super_list, char **envp)
         pid[i] = fork();
         if (pid[1] == 0)
         {
-            close(my_pipe[i][1]);
-            close(my_pipe[i][0]);
+            close_all_pipe((int **) my_pipe, i);
             execute_command(tmp->tab_string, envp, my_pipe[i][0], my_pipe[i+1][1]);
         }
-
-        /*Close ALl*/
-        close_all_pipe(my_pipe, nb_cmd);
         i++;
         tmp = tmp->next;
     }
     pid[i] = fork();
     if (pid[i] == 0)
+    {
+        close_all_pipe((int **) my_pipe, i);
         execute_command(tmp->tab_string, envp, my_pipe[i][0], STDOUT_FILENO);
-
-    close_all_pipe(my_pipe, nb_cmd);
+    }
+        
+    close_all_pipe((int **) my_pipe, i);
     wait_all_pid(pid, nb_cmd);
     return 0;
 }

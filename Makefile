@@ -4,12 +4,13 @@ CC = cc -Wall -Wextra -Werror
 FILE_NAMES = parsing_argument \
 			pipex \
 			stack \
-			stack_utils \
 			parsing_environnement \
 			free_all \
 			parsing_command \
 			super_list \
-			tab_utils
+			tab_utils \
+			execute \
+			check_command
 			
 				
 SRC_PATH = .

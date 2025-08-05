@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:23:06 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/05 01:00:25 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/05 10:35:52 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int parsing_infile(char **argv, t_file *file);
 static int parsing_outfile(char **argv, t_file *file, int i);
-static int parsing_command_line(int argc, char **argv, t_stack_string **stack);
+static int parsing_command_line(int argc, char **argv, t_super_list **super_list);
 
-int parsing_argument(int argc, char **argv, t_file *file, t_stack_string **stack)
+int parsing_argument(int argc, char **argv, t_file *file, t_super_list **super_list)
 {
     
     if (argc < 3)
@@ -26,7 +26,7 @@ int parsing_argument(int argc, char **argv, t_file *file, t_stack_string **stack
     }
     if (parsing_infile(argv, file))
         return (1);
-    if (parsing_command_line(argc, argv, stack))
+    if (parsing_command_line(argc, argv, super_list))
     {
         free(file->infile);
         return (1);
@@ -62,20 +62,23 @@ static int parsing_outfile(char **argv, t_file *file, int i)
     return (0);
 }
 
-static int parsing_command_line(int argc, char **argv, t_stack_string **stack)
+static int parsing_command_line(int argc, char **argv, t_super_list **super_list)
 {   
+    char    **tab;
     int i;
 
     i = 2;
     while (i < argc - 1)
     {
-        *stack = push_stack(*stack, argv[i]);
-        if (*stack == NULL)
+        tab = ft_split(argv[i], ' ');
+        *super_list = put_super_back(*super_list, tab);
+        if (*super_list == NULL)
+        {
+            clear_tab(tab);
             return (1);
+        }
+        clear_tab(tab);
         i++;
     }
-    *stack = inversion_stack(*stack);
-    if (*stack == NULL)
-        return (1);
     return (0);
 }
