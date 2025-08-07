@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 02:09:04 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/07 17:44:01 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/07 20:11:41 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int execute_all(t_super_list **super_list, char **envp)
     pid_t pid;
     
     tmp = *super_list;
-    nb_cmd = lenght_super_list(tmp);
+    nb_cmd = lenght_super_list(tmp) -2;
     pipe(tmp->mypipe);
     pid = fork();
     if (pid == 0)
@@ -43,24 +43,26 @@ int execute_all(t_super_list **super_list, char **envp)
     close(tmp->mypipe[1]);
     
     /*New pipe*/
-    copy_pipe(previous_pipe, tmp->mypipe);
-    tmp = tmp->next;
-    pipe(tmp->mypipe);
-    pid = fork();
-    if (pid == 0)
+    while(nb_cmd--)
     {
-        dup2(previous_pipe[0], STDIN_FILENO);
+        copy_pipe(previous_pipe, tmp->mypipe);
+        tmp = tmp->next;
+        pipe(tmp->mypipe);
+        pid = fork();
+        if (pid == 0)
+        {
+            dup2(previous_pipe[0], STDIN_FILENO);
+            close(previous_pipe[0]);
+            dup2(tmp->mypipe[1], STDOUT_FILENO);
+            close(tmp->mypipe[1]);
+            execve(tmp->tab_string[0], tmp->tab_string, envp);
+            ft_putstr_fd("error", 1);
+            exit(-1);
+        }
+        /*Close les pipes precedent*/
         close(previous_pipe[0]);
-        dup2(tmp->mypipe[1], STDOUT_FILENO);
         close(tmp->mypipe[1]);
-        execve(tmp->tab_string[0], tmp->tab_string, envp);
-        ft_putstr_fd("error", 1);
-        exit(-1);
-        
     }
-    /*Close les pipes precedent*/
-    close(previous_pipe[0]);
-    close(tmp->mypipe[1]);
     
     /*New pipe*/
     copy_pipe(previous_pipe, tmp->mypipe);
