@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:23:06 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/05 10:35:52 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/07 20:31:43 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static int parsing_command_line(int argc, char **argv, t_super_list **super_list
     while (i < argc - 1)
     {
         tab = ft_split(argv[i], ' ');
+        
         *super_list = put_super_back(*super_list, tab);
         if (*super_list == NULL)
         {
