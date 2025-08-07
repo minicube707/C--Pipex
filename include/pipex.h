@@ -2,7 +2,7 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "libft/libft.h"
+# include "libft.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -32,6 +32,7 @@ typedef struct s_file
 typedef struct s_super_list
 {
 	char					**tab_string;
+	int						mypipe[2];
 	struct s_super_list		*next;
 
 }							t_super_list;

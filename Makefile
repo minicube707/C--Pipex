@@ -13,13 +13,13 @@ FILE_NAMES = parsing_argument \
 			check_command
 			
 				
-SRC_PATH = .
-OBJ_PATH = .
-HEA_PATH = .
+SRC_PATH = src
+OBJ_PATH = obj
+HEA_PATH = include
 
 SRC_FILES = $(FILE_NAMES:%=$(SRC_PATH)/%.c)
 OBJ_FILES = $(FILE_NAMES:%=$(OBJ_PATH)/%.o)
-HEA_FILES = $(HEA_PATH)/push_swap.h
+HEA_FILES = $(HEA_PATH)/pipex.h
 
 NAME = pipex
 
