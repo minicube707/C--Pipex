@@ -77,4 +77,12 @@ int check_command(t_stack_string **stack, char **tab);
 
 /*Execute*/
 int execute_all(t_super_list **super_list, char **envp);
+
+/*Check_Nb_Quote*/
+int	count_nb_quote(char *string);
+int check_nb_quote(char *tab, t_super_list *super_list);
+
+/*Split Command*/
+char **split_commmand(char *string);
+
 #endif

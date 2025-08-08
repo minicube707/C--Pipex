@@ -1,16 +1,18 @@
 
 CC = cc -Wall -Wextra -Werror
 
-FILE_NAMES = parsing_argument \
-			pipex \
-			stack \
-			parsing_environnement \
-			free_all \
-			parsing_command \
-			super_list \
-			tab_utils \
-			execute \
-			check_command
+FILE_NAMES =	check_command \
+                check_nb_quote \
+                execute \
+                free_all \
+                parsing_argument \
+                parsing_command \
+                parsing_environnement \
+                pipex \
+                split_command \
+                stack \
+                super_list \
+                tab_utils \
 			
 				
 SRC_PATH = src
@@ -49,3 +51,6 @@ fclean : clean
 	rm -f $(NAME)
 
 re : fclean all
+
+get_file:
+	find src -type f -name '*.c' | sort | sed -E 's|.*/||; s/\.c$$/ \\/; s/^/\t\t/'

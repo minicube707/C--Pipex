@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 23:31:15 by florent           #+#    #+#             */
-/*   Updated: 2025/08/07 20:26:19 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/08 15:15:39 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(int argc, char **argv, char **envp)
 		return (-1);
 	}
 	
+	ft_putstr_fd("\nCommand\n", 1);
     print_super_list(super_list);
     if (parsing_command(&stack_env, &super_list))
 	{

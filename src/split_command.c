@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/28 11:27:17 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/08 17:57:59 by fmotte           ###   ########.fr       */
+/*   Created: 2025/08/08 15:04:20 by fmotte            #+#    #+#             */
+/*   Updated: 2025/08/08 18:02:37 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
-
-
-int	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str == NULL)
-		return (0);
-	while (str[i] != 0)
-		i++;
-	return (i);
+char    **split_commmand(char *string)
+{   
+    
+    return (NULL);
 }

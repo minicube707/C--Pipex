@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:23:06 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/07 20:31:43 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/08 15:07:42 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ int parsing_argument(int argc, char **argv, t_file *file, t_super_list **super_l
     if (parsing_command_line(argc, argv, super_list))
     {
         free(file->infile);
+        file->infile = NULL;
         return (1);
     }
     if (parsing_outfile(argv, file, argc -1))
     {
         free(file->infile);
+        file->infile = NULL;
         return (1);
     }   
     return (0);
@@ -67,11 +69,14 @@ static int parsing_command_line(int argc, char **argv, t_super_list **super_list
     char    **tab;
     int i;
 
+    tab = NULL;
     i = 2;
     while (i < argc - 1)
     {
+        if (check_nb_quote(argv[i], *super_list))
+            return (1);
+        split_commmand(argv[i]);
         tab = ft_split(argv[i], ' ');
-        
         *super_list = put_super_back(*super_list, tab);
         if (*super_list == NULL)
         {
