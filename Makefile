@@ -10,7 +10,9 @@ FILE_NAMES =	check_command \
                 parsing_environnement \
                 pipex \
                 split_command \
+                split_command_utils \
                 stack \
+                stack_utils \
                 super_list \
                 tab_utils \
 			
@@ -52,5 +54,3 @@ fclean : clean
 
 re : fclean all
 
-get_file:
-	find src -type f -name '*.c' | sort | sed -E 's|.*/||; s/\.c$$/ \\/; s/^/\t\t/'

@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:23:06 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/08 15:07:42 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/09 16:33:34 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static int parsing_outfile(char **argv, t_file *file, int i)
 
 static int parsing_command_line(int argc, char **argv, t_super_list **super_list)
 {   
+    t_stack_string	*stack;
     char    **tab;
     int i;
 
@@ -75,8 +76,8 @@ static int parsing_command_line(int argc, char **argv, t_super_list **super_list
     {
         if (check_nb_quote(argv[i], *super_list))
             return (1);
-        split_commmand(argv[i]);
-        tab = ft_split(argv[i], ' ');
+        stack = split_commmand(argv[i]);
+        tab = stack_to_tab(stack);
         *super_list = put_super_back(*super_list, tab);
         if (*super_list == NULL)
         {

@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 23:31:15 by florent           #+#    #+#             */
-/*   Updated: 2025/08/08 15:15:39 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/09 16:35:32 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ int	main(int argc, char **argv, char **envp)
 		return (-1);
 	}
 	
-	ft_putstr_fd("\nCommand\n", 1);
-    print_super_list(super_list);
     if (parsing_command(&stack_env, &super_list))
 	{
         free_file(&file);
@@ -52,7 +50,7 @@ int	main(int argc, char **argv, char **envp)
     execute_all(&super_list, envp);
     clear_super_list(super_list);
 
-    
+    printf("\n");
 	printf("INFILE %s \n", file.infile);
 	printf("OUTFILE %s \n", file.outfile);
 	free_file(&file);

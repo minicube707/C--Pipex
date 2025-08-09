@@ -1,0 +1,27 @@
+
+
+ps aux | grep nginx
+"ps aux" "grep ngnix"
+cat fichier.txt | wc -l
+"cat fichier.txt" "wc -l"
+
+cat fichier.txt | grep 'Pig' | wc -l   
+"cat fichier.txt" "grep 'Pig'" "wc -l"
+ls -l | grep '^d' | wc -l  
+"ls -l" "grep '^d'" "wc -l"
+
+find . -type f | xargs du -h | sort -h | tail -n 10
+"find . -type f" "xargs du -h" "sort -h" "tail -n 10"
+cat fichier.txt | tr ' ' '\n' | sort | uniq -c | sort -nr   
+"cat fichier.txt" "tr ' ' '\n'" "sort" "uniq -c" "sort -nr"
+ 
+
+
+cat text.txt | tr '[:space:]' '[\n*]' | grep -v '^$' | sort | uniq -c | sort -nr
+"cat text.txt" "tr '[:space:]' '[\n*]'"  "grep -v '^$'"  "sort"  "uniq -c" "sort -nr"
+ls -R1 | grep "\." | rev | cut -d. -f1 | rev | sort | uniq -c | sort -nr
+"ls -R1" "grep '\.'" "rev"  "cut -d. -f1" "rev" "sort" "uniq -c" "sort -nr"
+
+find /var/log -type f | xargs cat | grep "fail" | cut -d ':' -f2 | sort | uniq | wc -l
+"find /var/log -type f" "xargs cat"  "grep 'fail'" "cut -d ':' -f2" "sort" "uniq" "wc -l"
+
