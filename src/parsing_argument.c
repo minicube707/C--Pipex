@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:23:06 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/09 16:33:34 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/09 17:22:49 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int parsing_command_line(int argc, char **argv, t_super_list **super_list
 int parsing_argument(int argc, char **argv, t_file *file, t_super_list **super_list)
 {
     
-    if (argc < 3)
+    if (argc < 5)
     {
         ft_putstr_fd("Error: insufficient number of elements\n", 1); 
         return (1);

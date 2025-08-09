@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:28:26 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/09 14:34:54 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/09 17:25:48 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ char	*ft_strdup(const char *src)
 
 	len = ft_strlen(src);
 	if (len == 0)
-    {
-        tab = malloc(sizeof(char));
-        tab[0] = 0;
-        return (tab);
-    }
+	{
+		tab = malloc(sizeof(char));
+		tab[0] = 0;
+		return (tab);
+	}
 	len++;
 	tab = malloc(sizeof(char) * len);
 	if (tab == NULL)

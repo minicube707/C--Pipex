@@ -6,13 +6,11 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 11:27:17 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/08 17:57:59 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/09 17:23:53 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-
 
 int	ft_strlen(const char *str)
 {

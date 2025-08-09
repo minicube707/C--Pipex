@@ -6,13 +6,13 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 12:12:39 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/08 15:30:01 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/09 17:25:28 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int	nb_sep(char const *s, char c)
+static int	nb_sep(char const *s, char c)
 {
 	char	*tmp;
 	int		nb_sep;
@@ -36,7 +36,7 @@ static	int	nb_sep(char const *s, char c)
 	return (nb_sep + 2);
 }
 
-/*--------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /**
  * @brief Recherche le premier caractère différent de `c` dans la chaîne `s`.
  *
@@ -46,14 +46,18 @@ static	int	nb_sep(char const *s, char c)
  * Si tous les caractères sont égaux à `c` et que `c` n’est pas `'\0'`,
  * la fonction retourne un pointeur vers le caractère nul de fin de chaîne.
  *
- * Si `c` est `'\0'` et qu'aucun caractère différent n’est trouvé (ce qui est toujours le cas),
+
+	* Si `c` est `'\0'` et qu'aucun caractère différent n’est trouvé (ce qui 
+	est toujours le cas),
  * la fonction retourne NULL.
  *
  * @param s La chaîne de caractères à analyser.
  * @param c Le caractère à comparer.
  * @return Un pointeur vers le premier caractère de `s` différent de `c`,
- *         ou vers le caractère nul si aucun caractère différent n’est trouvé et que `c != '\0'`,
- *         ou NULL si `c == '\0'` et aucun caractère différent n’est trouvé.
+
+ *ou vers le caractère nul si aucun caractère différent n’est trouvé 
+ et que `c != '\0'`,
+ *ou NULL si `c == '\0'` et aucun caractère différent n’est trouvé.
  */
 /*--------------------------------------------------*/
 static char	*ft_nstrchr(const char *s, int c)
@@ -63,12 +67,12 @@ static char	*ft_nstrchr(const char *s, int c)
 	i = 0;
 	while (s[i] != 0)
 	{
-		if (s[i] != (char) c)
-			return ((char *) &s[i]);
+		if (s[i] != (char)c)
+			return ((char *)&s[i]);
 		i++;
 	}
 	if (c != '\0')
-		return ((char *) &s[i]);
+		return ((char *)&s[i]);
 	return (NULL);
 }
 
@@ -125,7 +129,7 @@ char	**ft_split(char const *s, char c)
 		tab[0] = NULL;
 		return (tab);
 	}
-	tmp = (char *) s;
+	tmp = (char *)s;
 	tab = malloc(num_sep * sizeof(char **));
 	if (tab == NULL)
 		return (NULL);
