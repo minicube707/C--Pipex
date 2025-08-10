@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 02:09:04 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/07 20:11:41 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/10 22:46:52 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,12 @@ int execute_all(t_super_list **super_list, char **envp)
     
     tmp = *super_list;
     nb_cmd = lenght_super_list(tmp) -2;
-    pipe(tmp->mypipe);
+    if (pipe(tmp->mypipe) == -1)
+    {
+        print_error("failure creation of pipe");
+        clear_tab(envp);
+        return(-1);
+    }
     pid = fork();
     if (pid == 0)
     {
@@ -35,7 +40,7 @@ int execute_all(t_super_list **super_list, char **envp)
         dup2(tmp->mypipe[1], STDOUT_FILENO);
         close(tmp->mypipe[1]);
         execve(tmp->tab_string[0], tmp->tab_string, envp);
-        ft_putstr_fd("error", 1);
+        print_error("command failure");
         exit(-1);
         
     }
@@ -47,7 +52,12 @@ int execute_all(t_super_list **super_list, char **envp)
     {
         copy_pipe(previous_pipe, tmp->mypipe);
         tmp = tmp->next;
-        pipe(tmp->mypipe);
+        if (pipe(tmp->mypipe) == -1)
+        {
+            clear_tab(envp);
+            print_error("failure creation of pipe");
+            return(-1);
+        }
         pid = fork();
         if (pid == 0)
         {
@@ -56,7 +66,7 @@ int execute_all(t_super_list **super_list, char **envp)
             dup2(tmp->mypipe[1], STDOUT_FILENO);
             close(tmp->mypipe[1]);
             execve(tmp->tab_string[0], tmp->tab_string, envp);
-            ft_putstr_fd("error", 1);
+            print_error("command failure");
             exit(-1);
         }
         /*Close les pipes precedent*/
@@ -67,8 +77,12 @@ int execute_all(t_super_list **super_list, char **envp)
     /*New pipe*/
     copy_pipe(previous_pipe, tmp->mypipe);
     tmp = tmp->next;
-    pipe(tmp->mypipe);
-   
+    if (pipe(tmp->mypipe) == -1)
+    {
+        clear_tab(envp);
+        print_error("failure creation of pipe");
+        return(-1);
+    }
     pid = fork();
     if (pid == 0)
     {
@@ -76,7 +90,7 @@ int execute_all(t_super_list **super_list, char **envp)
         close(previous_pipe[0]);
         close(tmp->mypipe[1]);
         execve(tmp->tab_string[0], tmp->tab_string, envp);
-        ft_putstr_fd("error", 1);
+        print_error("command failure");
         exit(-1);
     }
     

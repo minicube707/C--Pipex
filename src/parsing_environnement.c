@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_environnement.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 23:31:24 by florent           #+#    #+#             */
-/*   Updated: 2025/08/05 03:26:46 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/10 21:52:30 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ int parsing_environnement(t_stack_string **stack, char **envp, char *var)
 
 static void manage_free(char **tab_env, char *res)
 {
-    int i;
-
-    i = -1;
     if (tab_env != NULL)
         clear_tab(tab_env);
     if (res != NULL)

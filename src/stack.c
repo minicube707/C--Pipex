@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 17:08:53 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/09 15:48:00 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/11 00:03:32 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ t_stack_string	*push_stack(t_stack_string *st, char *string)
 	element = malloc(sizeof(*element));
 	if (element == NULL)
 	{
-		ft_putstr_fd("Probleme allocation dynamique with sactk\n", 1);
+		print_error("Dynamic allocation issue iwith stack");
 		clear_stack(st);
 		return (NULL);
 	}
 	element->string = ft_strdup(string);
 	if (element->string == NULL)
 	{
-		ft_putstr_fd("Probleme allocation dynamique with dup in stack\n", 1);
+		print_error("Dynamic allocation issue in copy_stack content");
 		clear_stack(st);
 		free(element);
 		return (NULL);

@@ -1,43 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_nb_quote.c                                   :+:      :+:    :+:   */
+/*   manage_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 19:16:47 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/10 22:44:51 by florent          ###   ########.fr       */
+/*   Created: 2025/08/10 22:34:24 by florent           #+#    #+#             */
+/*   Updated: 2025/08/10 22:42:54 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	count_nb_quote(char *string)
+void    print_error(char *string)
 {
-	int	i;
-	int	nb_quote;
-
-	i = 0;
-	nb_quote = 0;
-	while (string[i] != 0)
-	{
-		if (string[i] == '\'')
-			nb_quote++;
-		i++;
-	}
-	return (nb_quote);
+    ft_putstr_fd("error", 1);
+    ft_putstr_fd(string, 1);
+    ft_putstr_fd("\n", 1);
 }
 
-int	check_nb_quote(char *string, t_super_list *super_list)
+void    print_error_unknow_cmd(char *string)
 {
-	int	nb_quote;
-
-	nb_quote = count_nb_quote(string);
-	if (nb_quote % 2 == 1)
-	{
-		print_error("insufficient number of quote");
-		clear_super_list(super_list);
-		return (1);
-	}
-	return (0);
+    ft_putstr_fd("Error: command doesn't exist: ", 1);
+    ft_putstr_fd(string, 1);
+    ft_putstr_fd("\n", 1);
 }

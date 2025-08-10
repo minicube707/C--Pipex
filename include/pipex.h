@@ -68,6 +68,7 @@ char						**copy_tab(char **tab);
 void						clear_tab(char **tab);
 void						print_tab(char **tab);
 char						**stack_to_tab(t_stack_string *stack);
+int							lenght_tab(char **tab);
 
 /*Parsing environnement*/
 int							parsing_environnement(t_stack_string **stack,
@@ -100,5 +101,9 @@ char						*get_before_sep(char *string, char **after,
 								int sep);
 char						*duplicate_and_push(t_stack_string **stack,
 								char *res, char *new_tmp);
+
+/*Manage Error*/
+void    print_error(char *string);
+void    print_error_unknow_cmd(char *string);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_argument.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:23:06 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/09 17:22:49 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/10 22:47:52 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int parsing_argument(int argc, char **argv, t_file *file, t_super_list **super_l
     
     if (argc < 5)
     {
-        ft_putstr_fd("Error: insufficient number of elements\n", 1); 
+        print_error("insufficient number of elements");
         return (1);
     }
     if (parsing_infile(argv, file))
@@ -46,7 +46,7 @@ static int parsing_infile(char **argv, t_file *file)
     file->infile = ft_strdup(argv[1]);
     if (file->infile == NULL)
     {
-        ft_putstr_fd("Probleme allocation dynamique with dup in stack\n", 1);
+        print_error("Problem allocation dynamique with dup in stack");
         return (1);
     }
     return (0);
@@ -57,7 +57,7 @@ static int parsing_outfile(char **argv, t_file *file, int i)
     file->outfile = ft_strdup(argv[i]);
     if (file->outfile == NULL)
     {
-        ft_putstr_fd("Probleme allocation dynamique with dup in stack\n", 1);
+        print_error("Problem allocation dynamique with dup in stack");
         free(file->infile);
         return (1); 
     } 
@@ -78,11 +78,14 @@ static int parsing_command_line(int argc, char **argv, t_super_list **super_list
             return (1);
         stack = split_commmand(argv[i]);
         tab = stack_to_tab(stack);
-        *super_list = put_super_back(*super_list, tab);
-        if (*super_list == NULL)
+        if (*tab != NULL)
         {
-            clear_tab(tab);
-            return (1);
+            *super_list = put_super_back(*super_list, tab);
+            if (*super_list == NULL)
+            {
+                clear_tab(tab);
+                return (1);
+            }
         }
         clear_tab(tab);
         i++;

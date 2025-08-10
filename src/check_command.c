@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 07:22:10 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/05 10:24:31 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/10 22:43:50 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ int check_command(t_stack_string **stack, char **tab)
     t_stack_string *tmp;
     char *join;
     
+    if (**tab == '/')
+        return (0);
     tmp = *stack; 
-    join = ft_strjoin(tmp->string, tab[0]);
+    join = ft_strjoin(tmp->string, *tab);
     while (access(join, F_OK) && tmp->next != NULL)
     {   
         free(join);
         tmp = tmp->next;
-        join = ft_strjoin(tmp->string, tab[0]);
+        join = ft_strjoin(tmp->string, *tab);
     }
     if (!access(join, F_OK))
     {
@@ -31,8 +33,7 @@ int check_command(t_stack_string **stack, char **tab)
         tab[0] = join; 
         return (0);
     }
-        
-    ft_putstr_fd("Error: command doesn't exit\n", 1);
+    print_error_unknow_cmd(*tab);
     free(join);
     return (1);
 }

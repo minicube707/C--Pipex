@@ -1,10 +1,11 @@
 
-CC = cc -Wall -Wextra -Werror
+CC = cc -Wall -Wextra -Werror -MMD -MP
 
 FILE_NAMES =	check_command \
                 check_nb_quote \
                 execute \
                 free_all \
+                manage_error \
                 parsing_argument \
                 parsing_command \
                 parsing_environnement \
@@ -23,7 +24,9 @@ HEA_PATH = include
 
 SRC_FILES = $(FILE_NAMES:%=$(SRC_PATH)/%.c)
 OBJ_FILES = $(FILE_NAMES:%=$(OBJ_PATH)/%.o)
+DEP_FILES = $(OBJ_FILES:.o=.d)  # <- fichiers .d générés automatiquement
 HEA_FILES = $(HEA_PATH)/pipex.h
+
 
 NAME = pipex
 
@@ -46,7 +49,7 @@ $(NAME): $(OBJ_FILES)
 
 clean :
 	@$(MAKE) -C libft clean
-	rm -f $(OBJ_FILES)
+	rm -f $(OBJ_FILES) $(DEP_FILES)
 
 fclean : clean	
 	@$(MAKE) -C libft fclean
@@ -54,3 +57,5 @@ fclean : clean
 
 re : fclean all
 
+# Inclusion automatique des fichiers .d s’ils existent
+-include $(DEP_FILES)

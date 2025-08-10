@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   super_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 23:39:39 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/05 08:14:15 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/10 23:27:36 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_super_list *put_super_back(t_super_list *su, char **tab)
     element = malloc(sizeof(*element));
     if(element == NULL)
     {
-        ft_putstr_fd("Error: the file doesnt exit\n", 1);
+        print_error("Dynamic allocation issue with new element in super list");
         return (NULL);
     }
     element->tab_string = copy_tab(tab);
