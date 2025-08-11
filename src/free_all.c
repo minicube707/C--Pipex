@@ -6,15 +6,15 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 22:40:33 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/05 10:12:48 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/11 20:02:15 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void    free_file(t_file *file)
+void	free_file(t_file *file)
 {
-    free(file->infile);
-    free(file->outfile);
-    file = NULL;
+	free(file->infile);
+	free(file->outfile);
+	file = NULL;
 }

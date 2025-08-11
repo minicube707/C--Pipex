@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   tab_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 02:24:33 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/10 23:54:27 by florent          ###   ########.fr       */
+/*   Updated: 2025/08/11 19:59:32 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static	char **fill_tab(t_stack_string *tmp, char **tab)
+static char	**fill_tab(t_stack_string *tmp, char **tab)
 {
 	int	i;
-	
+
 	i = 0;
 	while (tmp != NULL)
 	{
@@ -36,10 +36,10 @@ static	char **fill_tab(t_stack_string *tmp, char **tab)
 	return (tab);
 }
 
-static 	int count_no_mt_stack(t_stack_string *tmp)
+static int	count_no_mt_stack(t_stack_string *tmp)
 {
-	int size;
-	
+	int	size;
+
 	size = 1;
 	while (tmp != NULL)
 	{
@@ -50,22 +50,22 @@ static 	int count_no_mt_stack(t_stack_string *tmp)
 	return (size);
 }
 
-static 	void error_alloc(char **new_tab, char **tab)
+static void	error_alloc(char **new_tab, char **tab)
 {
 	print_error("Problem allocation with new element in tab");
 	clear_tab(tab);
 	clear_tab(new_tab);
 }
 
-int		lenght_tab(char **tab)
+int	lenght_tab(char **tab)
 {
-	int		nb_elem;
+	int	nb_elem;
 
 	nb_elem = 0;
 	while (tab[nb_elem] != NULL)
 		nb_elem++;
 	nb_elem++;
-	return(nb_elem);
+	return (nb_elem);
 }
 
 char	**copy_tab(char **tab)
@@ -73,7 +73,7 @@ char	**copy_tab(char **tab)
 	char	**new_tab;
 	int		nb_elem;
 	int		i;
-	
+
 	nb_elem = lenght_tab(tab);
 	new_tab = malloc(nb_elem * sizeof(char **));
 	if (new_tab == NULL)
@@ -124,8 +124,8 @@ void	print_tab(char **tab)
 }
 char	**stack_to_tab(t_stack_string *stack)
 {
-	char			**tab;
-	int				size;
+	char	**tab;
+	int		size;
 
 	size = count_no_mt_stack(stack);
 	tab = malloc(size * sizeof(char *));
@@ -135,6 +135,6 @@ char	**stack_to_tab(t_stack_string *stack)
 		return (NULL);
 	}
 	tab = fill_tab(stack, tab);
-    clear_stack(stack);
+	clear_stack(stack);
 	return (tab);
 }

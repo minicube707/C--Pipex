@@ -106,4 +106,7 @@ char						*duplicate_and_push(t_stack_string **stack,
 void    print_error(char *string);
 void    print_error_unknow_cmd(char *string);
 
+/*Copy Pipe*/
+void    copy_pipe(int copy[2], int tab[2]);
+
 #endif

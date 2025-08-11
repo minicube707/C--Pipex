@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_command.c                                  :+:      :+:    :+:   */
+/*   copy_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/04 23:37:38 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/11 20:02:07 by fmotte           ###   ########.fr       */
+/*   Created: 2025/08/11 19:50:33 by fmotte            #+#    #+#             */
+/*   Updated: 2025/08/11 19:56:36 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	parsing_command(t_stack_string **stack_env, t_super_list **super_list)
+void	copy_pipe(int copy[2], int tab[2])
 {
-	t_super_list	*tmp;
-	int				len;
-
-	tmp = *super_list;
-	len = lenght_super_list(tmp);
-	while (len--)
-	{
-		if (check_command(stack_env, tmp->tab_string))
-		{
-			clear_stack(*stack_env);
-			clear_super_list(*super_list);
-			return (1);
-		}
-		tmp = tmp->next;
-	}
-	return (0);
+	copy[0] = tab[0];
+	copy[1] = tab[1];
 }
