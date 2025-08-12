@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_argument.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:23:06 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/11 19:58:22 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/12 01:14:19 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,13 @@ static int	parsing_command_line(int argc, char **argv,
 			return (1);
 		stack = split_commmand(argv[i]);
 		tab = stack_to_tab(stack);
+		if (tab == NULL)
+			return (1);
 		if (*tab != NULL)
 		{
 			*super_list = put_super_back(*super_list, tab);
 			if (*super_list == NULL)
-			{
-				clear_tab(tab);
 				return (1);
-			}
 		}
 		clear_tab(tab);
 		i++;

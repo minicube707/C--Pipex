@@ -6,7 +6,7 @@
 /*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 14:56:07 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/10 23:50:15 by florent          ###   ########.fr       */
+/*   Updated: 2025/08/13 00:34:09 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ t_stack_string	*reverse_stack(t_stack_string *st)
 		{
 			print_error("Dynamic allocation issue in reverse_stack content");
 			clear_stack(st);
+			clear_stack(new_st);
 			return (NULL);
 		}
 		st = pop_stack(st);
 		new_st = push_stack(new_st, string);
 		if (new_st == NULL)
 		{
+			free(string);
 			clear_stack(st);
 			return (NULL);
 		}
@@ -64,4 +66,18 @@ t_stack_string	*copy_stack(t_stack_string *st)
 		free(string);
 	}
 	return (reverse_stack(new_st));
+}
+
+void	print_stack(t_stack_string *st)
+{
+	if (is_empty_stack(st))
+	{
+		printf("La pile est vide, rien a afficher\n");
+		return ;
+	}
+	while (!is_empty_stack(st))
+	{
+		printf("%s\n", st->string);
+		st = st->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 17:08:53 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/11 00:03:32 by florent          ###   ########.fr       */
+/*   Updated: 2025/08/13 00:33:57 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,4 @@ t_stack_string	*pop_stack(t_stack_string *st)
 	free(st);
 	st = NULL;
 	return (element);
-}
-
-void	print_stack(t_stack_string *st)
-{
-	if (is_empty_stack(st))
-	{
-		printf("La pile est vide, rien a afficher\n");
-		return ;
-	}
-	while (!is_empty_stack(st))
-	{
-		printf("%s\n", st->string);
-		st = st->next;
-	}
-	return ;
 }

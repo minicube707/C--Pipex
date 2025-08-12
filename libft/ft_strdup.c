@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:28:26 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/09 17:25:48 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/13 00:02:34 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	*ft_strdup(const char *src)
 	if (len == 0)
 	{
 		tab = malloc(sizeof(char));
+		if (tab == NULL)
+			return (NULL);
 		tab[0] = 0;
 		return (tab);
 	}

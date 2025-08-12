@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmotte <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:56:07 by fmotte            #+#    #+#             */
-/*   Updated: 2025/05/03 14:40:22 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/13 00:36:24 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	negative(int tmp, int *is_negative)
 }
 
 char	*ft_itoa(int n)
-{	
+{
 	unsigned int	tmp;
 	int				is_negative;
 	char			*res;

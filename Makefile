@@ -16,7 +16,9 @@ FILE_NAMES =	check_command \
                 stack \
                 stack_utils \
                 super_list \
+                super_list_utils \
                 tab_utils \
+                tab_utils_utils \
 			
 				
 SRC_PATH = src

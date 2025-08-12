@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/13 00:27:38 by florent           #+#    #+#             */
+/*   Updated: 2025/08/13 00:28:59 by florent          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
@@ -103,10 +114,10 @@ char						*duplicate_and_push(t_stack_string **stack,
 								char *res, char *new_tmp);
 
 /*Manage Error*/
-void    print_error(char *string);
-void    print_error_unknow_cmd(char *string);
+void						print_error(char *string);
+void						print_error_unknow_cmd(char *string);
 
 /*Copy Pipe*/
-void    copy_pipe(int copy[2], int tab[2]);
+void						copy_pipe(int copy[2], int tab[2]);
 
 #endif

@@ -3,52 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tab_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 02:24:33 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/11 19:59:32 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/13 00:48:51 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-static char	**fill_tab(t_stack_string *tmp, char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tmp != NULL)
-	{
-		if (*tmp->string != 0)
-		{
-			tab[i] = ft_strdup(tmp->string);
-			if (tab[i] == NULL)
-			{
-				print_error("Problem allocation with new element in tab");
-				clear_tab(tab);
-				return (NULL);
-			}
-			i++;
-		}
-		tmp = tmp->next;
-	}
-	tab[i] = NULL;
-	return (tab);
-}
-
-static int	count_no_mt_stack(t_stack_string *tmp)
-{
-	int	size;
-
-	size = 1;
-	while (tmp != NULL)
-	{
-		if (*tmp->string != 0)
-			size++;
-		tmp = tmp->next;
-	}
-	return (size);
-}
 
 static void	error_alloc(char **new_tab, char **tab)
 {
@@ -108,33 +70,4 @@ void	clear_tab(char **tab)
 		i++;
 	}
 	free(tab);
-}
-
-void	print_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i] != NULL)
-	{
-		ft_putstr_fd(tab[i], 1);
-		ft_putstr_fd("\n", 1);
-		i++;
-	}
-}
-char	**stack_to_tab(t_stack_string *stack)
-{
-	char	**tab;
-	int		size;
-
-	size = count_no_mt_stack(stack);
-	tab = malloc(size * sizeof(char *));
-	if (tab == NULL)
-	{
-		print_error("Problem allocation with creation of tab");
-		return (NULL);
-	}
-	tab = fill_tab(stack, tab);
-	clear_stack(stack);
-	return (tab);
 }

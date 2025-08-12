@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 02:09:04 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/11 20:02:43 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/12 01:16:46 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,18 @@ int	execute_all(t_super_list **super_list, char **envp)
 	pid_t			pid;
 
 	tmp = *super_list;
+	previous_pipe[0] = -1;
+	previous_pipe[1] = -1;
 	nb_cmd = lenght_super_list(tmp) - 2;
 	tmp = first_cmd(tmp, envp);
+	if (tmp == NULL)
+		return (1);
 	tmp = mid_cmd(tmp, envp, previous_pipe, nb_cmd);
+	if (tmp == NULL)
+		return (1);
 	tmp = last_cmd(tmp, envp, previous_pipe, &pid);
+	if (tmp == NULL)
+		return (1);
 	close(previous_pipe[0]);
 	close(tmp->mypipe[1]);
 	close(tmp->mypipe[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmotte <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 17:00:46 by fmotte            #+#    #+#             */
-/*   Updated: 2025/05/03 13:57:36 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/13 00:45:11 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strnstr(char *big, char *little, size_t len)
 	{
 		j = 0;
 		while (big[i + j] == little[j] && i + j < len \
-				&& little[j] != 0)
+			&& little[j] != 0)
 			j++;
 		if (little[j] == 0)
 			return ((char *) &big[i]);
