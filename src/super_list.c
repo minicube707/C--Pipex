@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   super_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 23:39:39 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/13 00:53:21 by florent          ###   ########.fr       */
+/*   Updated: 2025/08/13 10:22:21 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,7 @@ t_super_list	*put_super_back(t_super_list *su, char **tab)
 	if (is_empty_super_list(su))
 		return (element);
 	tmp = su;
-	while (tmp->next != NULL)
-	{
-		tmp = tmp->next;
-	}
+	tmp = bot_super_list(su);
 	tmp->next = element;
 	return (su);
 }

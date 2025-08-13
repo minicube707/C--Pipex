@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 23:31:15 by florent           #+#    #+#             */
-/*   Updated: 2025/08/10 21:42:54 by florent          ###   ########.fr       */
+/*   Updated: 2025/08/13 14:48:11 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ int	main(int argc, char **argv, char **envp)
 		return (-1);
 	}
 	
+	if (check_file(&file))
+	{
+		clear_super_list(super_list);
+		clear_stack(stack_env);
+		return (-1);
+	}
+	
     if (parsing_command(&stack_env, &super_list))
 	{
         free_file(&file);
@@ -47,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 	}
     
 
-    execute_all(&super_list, envp);
+    execute_all(&super_list, envp, &file);
     clear_super_list(super_list);
 
     printf("\n");

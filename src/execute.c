@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 02:09:04 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/12 01:16:46 by florent          ###   ########.fr       */
+/*   Updated: 2025/08/13 17:31:17 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,20 @@ static void	manage_pipe(int previous_pipe[2], t_super_list *tmp, char **envp)
 	exit(-1);
 }
 
-static t_super_list	*first_cmd(t_super_list *tmp, char **envp)
+static t_super_list	*first_cmd(t_super_list *tmp, char **envp, t_file *file)
 {
 	pid_t	pid;
 
 	if (pipe(tmp->mypipe) == -1)
 	{
 		print_error("failure creation of pipe");
-		clear_tab(envp);
 		return (NULL);
 	}
 	pid = fork();
 	if (pid == 0)
 	{
+		tmp->mypipe[0] = open(file->infile, O_RDONLY);
+		dup2(tmp->mypipe[0], STDIN_FILENO);
 		close(tmp->mypipe[0]);
 		dup2(tmp->mypipe[1], STDOUT_FILENO);
 		close(tmp->mypipe[1]);
@@ -49,7 +50,7 @@ static t_super_list	*first_cmd(t_super_list *tmp, char **envp)
 }
 
 static t_super_list	*last_cmd(t_super_list *tmp, char **envp,
-		int previous_pipe[2], pid_t *last_pid)
+		int previous_pipe[2], pid_t *last_pid, t_file *file)
 {
 	pid_t	pid;
 
@@ -57,15 +58,17 @@ static t_super_list	*last_cmd(t_super_list *tmp, char **envp,
 	tmp = tmp->next;
 	if (pipe(tmp->mypipe) == -1)
 	{
-		clear_tab(envp);
 		print_error("failure creation of pipe");
 		return (NULL);
 	}
 	pid = fork();
 	if (pid == 0)
 	{
+		previous_pipe[1] = open(file->outfile, O_CREAT | O_WRONLY | O_TRUNC,
+				0644);
 		dup2(previous_pipe[0], STDIN_FILENO);
 		close(previous_pipe[0]);
+		dup2(previous_pipe[1], STDOUT_FILENO);
 		close(tmp->mypipe[1]);
 		close(tmp->mypipe[0]);
 		execve(tmp->tab_string[0], tmp->tab_string, envp);
@@ -87,7 +90,6 @@ static t_super_list	*mid_cmd(t_super_list *tmp, char **envp,
 		tmp = tmp->next;
 		if (pipe(tmp->mypipe) == -1)
 		{
-			clear_tab(envp);
 			print_error("failure creation of pipe");
 			return (NULL);
 		}
@@ -100,7 +102,7 @@ static t_super_list	*mid_cmd(t_super_list *tmp, char **envp,
 	return (tmp);
 }
 
-int	execute_all(t_super_list **super_list, char **envp)
+int	execute_all(t_super_list **super_list, char **envp, t_file *file)
 {
 	t_super_list	*tmp;
 	int				nb_cmd;
@@ -108,16 +110,14 @@ int	execute_all(t_super_list **super_list, char **envp)
 	pid_t			pid;
 
 	tmp = *super_list;
-	previous_pipe[0] = -1;
-	previous_pipe[1] = -1;
 	nb_cmd = lenght_super_list(tmp) - 2;
-	tmp = first_cmd(tmp, envp);
+	tmp = first_cmd(tmp, envp, file);
 	if (tmp == NULL)
 		return (1);
 	tmp = mid_cmd(tmp, envp, previous_pipe, nb_cmd);
 	if (tmp == NULL)
 		return (1);
-	tmp = last_cmd(tmp, envp, previous_pipe, &pid);
+	tmp = last_cmd(tmp, envp, previous_pipe, &pid, file);
 	if (tmp == NULL)
 		return (1);
 	close(previous_pipe[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 00:27:38 by florent           #+#    #+#             */
-/*   Updated: 2025/08/13 00:28:59 by florent          ###   ########.fr       */
+/*   Updated: 2025/08/13 11:55:12 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void						print_super_list(t_super_list *li);
 t_super_list				*put_super_back(t_super_list *su, char **tab);
 t_super_list				*pop_super_front(t_super_list *li);
 t_super_list				*clear_super_list(t_super_list *li);
+t_super_list				*bot_super_list(t_super_list *st);
 
 /*Tab Utils*/
 char						**copy_tab(char **tab);
@@ -100,7 +101,7 @@ void						free_file(t_file *file);
 int							check_command(t_stack_string **stack, char **tab);
 
 /*Execute*/
-int							execute_all(t_super_list **super_list, char **envp);
+int							execute_all(t_super_list **super_list, char **envp, t_file *file);
 
 /*Check_Nb_Quote*/
 int							count_nb_quote(char *string);
@@ -119,5 +120,8 @@ void						print_error_unknow_cmd(char *string);
 
 /*Copy Pipe*/
 void						copy_pipe(int copy[2], int tab[2]);
+
+/*Check File*/
+int 						check_file(t_file *file);
 
 #endif

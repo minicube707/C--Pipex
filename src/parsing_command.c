@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 23:37:38 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/11 20:02:07 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/13 10:24:47 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ int	parsing_command(t_stack_string **stack_env, t_super_list **super_list)
 			return (1);
 		}
 		tmp = tmp->next;
+	}
+	if (lenght_super_list(*super_list) < 2)
+	{
+		clear_stack(*stack_env);
+		clear_super_list(*super_list);
+		print_error("insufficient number of command");
+		return (1);
 	}
 	return (0);
 }

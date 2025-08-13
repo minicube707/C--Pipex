@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   super_list_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 00:45:45 by florent           #+#    #+#             */
-/*   Updated: 2025/08/13 00:46:09 by florent          ###   ########.fr       */
+/*   Updated: 2025/08/13 10:18:52 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,13 @@ t_super_list	*clear_super_list(t_super_list *li)
 		li = pop_super_front(li);
 	}
 	return (li);
+}
+
+t_super_list	*bot_super_list(t_super_list *st)
+{
+	if (is_empty_super_list(st))
+		return (NULL);
+	while (st->next != NULL)
+		st = st->next;
+	return (st);
 }

@@ -2,6 +2,7 @@
 CC = cc -Wall -Wextra -Werror -MMD -MP -g
 
 FILE_NAMES =	check_command \
+                check_file \
                 check_nb_quote \
                 copy_pipe \
                 execute \
