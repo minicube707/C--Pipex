@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 00:27:38 by florent           #+#    #+#             */
-/*   Updated: 2025/08/13 11:55:12 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/14 18:08:24 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PIPEX_H
 
 # include "libft.h"
+# include "get_next_line_bonus.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -34,11 +35,11 @@ typedef struct s_stack_string
 	struct s_stack_string	*next;
 }							t_stack_string;
 
-typedef struct s_file
+typedef struct s_file_fd
 {
-	char					*infile;
-	char					*outfile;
-}							t_file;
+	int					fdin;
+	int					fdout;
+}							t_file_fd;
 
 typedef struct s_two_string
 {
@@ -87,21 +88,18 @@ int							parsing_environnement(t_stack_string **stack,
 								char **envp, char *var);
 
 /*Parsing Argument*/
-int							parsing_argument(int argc, char **argv,
-								t_file *file, t_super_list **super_list);
+int							parsing_argument(int argc, char **argv, t_file_fd *file_fd,
+							t_super_list **super_list);
 
 /*Parsing Command*/
 int							parsing_command(t_stack_string **stack_env,
 								t_super_list **super_list);
 
-/*Free file*/
-void						free_file(t_file *file);
-
 /*Check Command*/
 int							check_command(t_stack_string **stack, char **tab);
 
 /*Execute*/
-int							execute_all(t_super_list **super_list, char **envp, t_file *file);
+int							execute_all(t_super_list **super_list, char **envp, t_file_fd *file);
 
 /*Check_Nb_Quote*/
 int							count_nb_quote(char *string);
@@ -121,7 +119,7 @@ void						print_error_unknow_cmd(char *string);
 /*Copy Pipe*/
 void						copy_pipe(int copy[2], int tab[2]);
 
-/*Check File*/
-int 						check_file(t_file *file);
+/*Here Doc*/
+int here_doc(t_file_fd *file_fd);
 
 #endif

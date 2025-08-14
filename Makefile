@@ -1,12 +1,11 @@
 
-CC = cc -Wall -Wextra -Werror -MMD -MP -g
+CC = cc -Wall -Wextra -Werror -MMD -MP
 
 FILE_NAMES =	check_command \
-                check_file \
                 check_nb_quote \
                 copy_pipe \
                 execute \
-                free_all \
+                here_doc \
                 manage_error \
                 parsing_argument \
                 parsing_command \
@@ -28,9 +27,11 @@ HEA_PATH = include
 
 SRC_FILES = $(FILE_NAMES:%=$(SRC_PATH)/%.c)
 OBJ_FILES = $(FILE_NAMES:%=$(OBJ_PATH)/%.o)
-DEP_FILES = $(OBJ_FILES:.o=.d)  # <- fichiers .d générés automatiquement
+DEP_FILES = $(OBJ_FILES:.o=.d)
 HEA_FILES = $(HEA_PATH)/pipex.h
 
+INCULDE = -I $(HEA_PATH) -I libft -I ft_printf -I gnl
+ARCHIVE = -L libft -l ft -L gnl -l gnl
 
 NAME = pipex
 
@@ -42,21 +43,24 @@ $(OBJ_PATH) :
 	mkdir -p $(OBJ_PATH)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEA_FILES) | $(OBJ_PATH)
-	$(CC) -I$(HEA_PATH)  -Ilibft -Ift_printf -O3 -c $< -o $@
+	$(CC) $(INCULDE) -O3 -c $< -o $@
 
 
-$(NAME): $(OBJ_FILES) 
-	@$(MAKE) -C libft
-	$(CC) $(OBJ_FILES)  -Llibft -lft -o $(NAME)
+$(NAME): $(OBJ_FILES)
+	@$(MAKE) -C libft 
+	@$(MAKE) -C gnl
+	$(CC) $(OBJ_FILES)  $(ARCHIVE) -o $(NAME)
 
 
 
 clean :
 	@$(MAKE) -C libft clean
+	@$(MAKE) -C gnl clean
 	rm -f $(OBJ_FILES) $(DEP_FILES)
 
 fclean : clean	
 	@$(MAKE) -C libft fclean
+	@$(MAKE) -C gnl fclean
 	rm -f $(NAME)
 
 re : fclean all

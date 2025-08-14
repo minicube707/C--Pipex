@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_file.c                                       :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/13 10:29:05 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/13 17:28:51 by fmotte           ###   ########.fr       */
+/*   Created: 2025/05/07 16:18:12 by fmotte            #+#    #+#             */
+/*   Updated: 2025/08/14 18:13:05 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-int check_file(t_file *file)
-{ 
-    int fd;
-    
-    printf("ACESS1 %d \n", access(file->infile, F_OK));
-    if (access(file->infile, F_OK))
-    {
-        free_file(file);
-        print_error("input file doesn't exist");
-        return (1);
-    }
-    return (0);
-}
+# include "libft.h"
+# include <stddef.h>
+# include <stdlib.h>
+# include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
+
+char	*get_next_line(int fd);
+
+#endif
