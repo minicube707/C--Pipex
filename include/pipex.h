@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 00:27:38 by florent           #+#    #+#             */
-/*   Updated: 2025/08/14 18:08:24 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/15 15:24:50 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,6 @@ void						print_error_unknow_cmd(char *string);
 void						copy_pipe(int copy[2], int tab[2]);
 
 /*Here Doc*/
-int here_doc(t_file_fd *file_fd);
+int 						here_doc(t_file_fd *file_fd, char *limiter);
 
 #endif

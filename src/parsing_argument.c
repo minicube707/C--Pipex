@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:23:06 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/14 17:24:03 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/15 15:25:55 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,6 @@ static int	get_infile(char **argv, t_file_fd *file_fd)
 
 static int	parsing_infile(char **argv, t_file_fd *file_fd)
 {
-	if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) == 0)
-		return (here_doc(file_fd));
-	else	
 		return (get_infile(argv, file_fd));
 }
 

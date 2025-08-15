@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmotte <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 11:14:35 by fmotte            #+#    #+#             */
-/*   Updated: 2025/05/05 14:01:56 by fmotte           ###   ########.fr       */
+/*   Created: 2025/04/28 11:27:46 by fmotte            #+#    #+#             */
+/*   Updated: 2025/04/28 11:28:08 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+int	ft_toupper(int c)
 {
-	t_list	*tmp;
-	void	*tmp_content;
-
-	tmp = lst;
-	while (tmp != NULL)
-	{
-		tmp_content = tmp->content;
-		(f)(tmp_content);
-		tmp->content = tmp_content;
-		tmp = tmp->next;
-	}
-}
+	if (97 <= c && c <= 122)
+		c -= 32;
+	return (c);
+}	

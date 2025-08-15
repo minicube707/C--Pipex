@@ -6,7 +6,7 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 16:18:12 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/14 18:13:05 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/15 14:13:45 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@
 # endif
 
 char	*get_next_line(int fd);
+char	*ft_strncpy(char *dest, const char *src, unsigned int n);
 
 #endif

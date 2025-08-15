@@ -1,35 +1,70 @@
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CC = cc -Wall -Wextra -Werror -MMD -MP
 
-FILE_NAMES = ft_isalpha ft_isalnum ft_isdigit ft_isascii ft_isprint ft_strlen ft_memset ft_bzero ft_memcpy ft_memmove ft_strlcpy ft_strlcat ft_toupper ft_tolower ft_strchr ft_strrchr ft_strncmp ft_memchr ft_memcmp ft_strnstr ft_atoi ft_calloc ft_strdup ft_substr ft_strjoin ft_strtrim ft_split ft_itoa ft_strmapi ft_striteri ft_putchar_fd ft_putstr_fd ft_putendl_fd ft_putnbr_fd 
+FILE_NAMES = ft_atoi \
+		ft_bzero \
+		ft_calloc \
+		ft_isalnum \
+		ft_isalpha \
+		ft_isascii \
+		ft_isdigit \
+		ft_isprint \
+		ft_itoa \
+		ft_memchr \
+		ft_memcmp \
+		ft_memcpy \
+		ft_memmove \
+		ft_memset \
+		ft_putchar_fd \
+		ft_putendl_fd \
+		ft_putnbr_fd \
+		ft_putstr_fd \
+		ft_split \
+		ft_strchr \
+		ft_strdup \
+		ft_striteri \
+		ft_strjoin \
+		ft_strlcat \
+		ft_strlcpy \
+		ft_strlen \
+		ft_strmapi \
+		ft_strncmp \
+		ft_strnstr \
+		ft_strrchr \
+		ft_strtrim \
+		ft_substr \
+		ft_tolower \
+		ft_toupper      
 
+SRC_PATH = src
+OBJ_PATH = obj
+HEA_PATH = include
 
-SRC_FILES = $(FILE_NAMES:%=%.c)
-OBJ_FILES = $(FILE_NAMES:%=%.o)
-HEA_FILES = libft.h
+SRC_FILES = $(FILE_NAMES:%=$(SRC_PATH)/%.c)
+OBJ_FILES = $(FILE_NAMES:%=$(OBJ_PATH)/%.o)
+DEP_FILES = $(OBJ_FILES:.o=.d)
+HEA_FILES = $(HEA_PATH)/libft.h
 
-BON_NAMES = ft_lstlast_bonus ft_lstadd_back_bonus ft_lstadd_front_bonus ft_lstclear_bonus ft_lstdelone_bonus ft_lstiter_bonus ft_lstmap_bonus ft_lstnew_bonus ft_lstsize_bonus 
-BON_OBJ = $(BON_NAMES:%=%.o)
+INCLUDE = -I $(HEA_PATH)
 
 NAME = libft.a
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
 
 all : $(NAME)
 
+$(OBJ_PATH) :
+	mkdir -p $(OBJ_PATH)
+
+$(OBJ_PATH)/%.o : $(SRC_PATH)/%.c $(HEA_FILES) | $(OBJ_PATH)
+	$(CC) $(INCLUDE) -c $< -o $@
 
 $(NAME) : $(OBJ_FILES)
 	ar rcs $(NAME) $(OBJ_FILES)
 
 
-%.o : %.c $(HEA_FILES)
-	$(CC) -I $(CFLAGS) -c $< -o $@
-
-
 clean :
-	rm -f $(OBJ_FILES)
-	rm -f $(BON_OBJ)
-
+	rm -f $(OBJ_FILES) $(DEP_FILES)
+	
 
 fclean : clean
 	rm -f $(NAME) 
@@ -37,5 +72,5 @@ fclean : clean
 
 re : fclean all
 
-bonus : $(BON_OBJ) $(OBJ_FILES)
-	ar rcs $(NAME) $(BON_OBJ) $(OBJ_FILES)
+# Inclusion automatique des fichiers .d s’ils existent
+-include $(DEP_FILES)

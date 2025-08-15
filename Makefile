@@ -30,12 +30,12 @@ OBJ_FILES = $(FILE_NAMES:%=$(OBJ_PATH)/%.o)
 DEP_FILES = $(OBJ_FILES:.o=.d)
 HEA_FILES = $(HEA_PATH)/pipex.h
 
-INCULDE = -I $(HEA_PATH) -I libft -I ft_printf -I gnl
+INCLUDE = -I $(HEA_PATH) -I libft/include -I gnl/include
 ARCHIVE = -L libft -l ft -L gnl -l gnl
 
 NAME = pipex
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
 
 all : $(NAME)
 
@@ -43,7 +43,7 @@ $(OBJ_PATH) :
 	mkdir -p $(OBJ_PATH)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEA_FILES) | $(OBJ_PATH)
-	$(CC) $(INCULDE) -O3 -c $< -o $@
+	$(CC) $(INCLUDE) -O3 -c $< -o $@
 
 
 $(NAME): $(OBJ_FILES)

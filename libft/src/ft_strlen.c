@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/28 11:27:46 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/13 00:37:43 by florent          ###   ########.fr       */
+/*   Created: 2025/04/28 11:27:17 by fmotte            #+#    #+#             */
+/*   Updated: 2025/08/15 15:32:29 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_toupper(int c)
+#include "libft.h"
+
+int	ft_strlen(const char *str)
 {
-	if (97 <= c && c <= 122)
-		c -= 32;
-	return (c);
+	int	i;
+
+	i = 0;
+	if (str == NULL)
+		return (0);
+	while (str[i] != 0)
+		i++;
+	return (i);
 }

@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmotte <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 11:07:20 by fmotte            #+#    #+#             */
-/*   Updated: 2025/05/05 13:31:11 by fmotte           ###   ########.fr       */
+/*   Created: 2025/04/28 17:00:46 by fmotte            #+#    #+#             */
+/*   Updated: 2025/05/03 13:57:36 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+char	*ft_strnstr(char *big, char *little, size_t len)
 {
-	t_list	*link;
+	unsigned long	i;
+	int				j;
 
-	link = malloc(sizeof(t_list));
-	if (link == NULL)
-		return (NULL);
-	link->content = content;
-	link->next = NULL;
-	return (link);
+	i = 0;
+	if (ft_strlen(little) == 0)
+		return ((char *) big);
+	while (big[i] != 0)
+	{
+		j = 0;
+		while (big[i + j] == little[j] && i + j < len \
+				&& little[j] != 0)
+			j++;
+		if (little[j] == 0)
+			return ((char *) &big[i]);
+		i++;
+	}
+	return (NULL);
 }
