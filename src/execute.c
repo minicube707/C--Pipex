@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 02:09:04 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/15 18:38:40 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/16 00:40:49 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_super_list	*first_cmd(t_super_list *tmp, char **envp, t_file_fd *file_f
 	{
 		close(tmp->mypipe[0]);
 		tmp->mypipe[0] = file_fd->fdin;
-		dup2( tmp->mypipe[0], STDIN_FILENO);
+		dup2(tmp->mypipe[0], STDIN_FILENO);
 		close(tmp->mypipe[0]);
 		dup2(tmp->mypipe[1], STDOUT_FILENO);
 		close(tmp->mypipe[1]);

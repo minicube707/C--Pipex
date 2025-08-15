@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 15:04:20 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/13 11:39:46 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/16 00:06:47 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*split_command_else(t_stack_string **stack, char *res,
 	return (tmp);
 }
 
-static	t_stack_string *split_command_loop(t_stack_string *stack, char *tmp)
+static t_stack_string	*split_command_loop(t_stack_string *stack, char *tmp)
 {
 	t_two_string	res;
 	t_two_string	new_tmp;

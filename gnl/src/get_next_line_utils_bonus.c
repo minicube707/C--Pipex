@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
+/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:47:16 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/15 14:11:48 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/15 23:31:13 by florent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,3 @@ char	*ft_strncpy(char *dest, const char *src, unsigned int n)
 		dest[i++] = '\0';
 	return (dest);
 }
-
