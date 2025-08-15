@@ -6,36 +6,38 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:23:06 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/15 15:25:55 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/15 19:40:38 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static int	get_infile(char **argv, t_file_fd *file_fd);
-static int	parsing_infile(char **argv, t_file_fd *file_fd);
+static int	get_infile(char **argv, t_file_fd *file_fd, int *start);
+static int	parsing_infile(char **argv, t_file_fd *file_fd, int *start);
 static int	parsing_outfile(char **argv, t_file_fd *file_fd, int i);
 static int	parsing_command_line(int argc, char **argv,
-				t_super_list **super_list);
+				t_super_list **super_list, int start);
 
 int	parsing_argument(int argc, char **argv, t_file_fd *file_fd,
 		t_super_list **super_list)
 {
-	if (argc < 5)
+	int start;
+	
+	if ((ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1]) ) == 0 && argc < 6) || argc < 5)
 	{
 		print_error("insufficient number of argument");
 		return (1);
 	}
-	if (parsing_infile(argv, file_fd))
+	if (parsing_infile(argv, file_fd, &start))
 		return (1);
-	if (parsing_command_line(argc, argv, super_list))
+	if (parsing_command_line(argc, argv, super_list, start))
 		return (1);
 	if (parsing_outfile(argv, file_fd, argc - 1))
 		return (1);
 	return (0);
 }
 
-static int	get_infile(char **argv, t_file_fd *file_fd)
+static int	get_infile(char **argv, t_file_fd *file_fd, int *start)
 {
 	if (access(argv[1], F_OK) == -1)
     {
@@ -48,17 +50,21 @@ static int	get_infile(char **argv, t_file_fd *file_fd)
 		print_error("failure openning infile");
         return (1);
 	}
+	*start = 2;
 	return (0);
 }
 
-static int	parsing_infile(char **argv, t_file_fd *file_fd)
+static int	parsing_infile(char **argv, t_file_fd *file_fd, int *start)
 {
-		return (get_infile(argv, file_fd));
+	if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) == 0)
+		return(here_doc(file_fd, argv[2], start));
+	else
+		return (get_infile(argv, file_fd, start));
 }
 
 static int	parsing_outfile(char **argv, t_file_fd *file_fd, int i)
 {
-	file_fd->fdout = open(argv[i], O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	file_fd->fdout = open(argv[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (file_fd->fdout == -1)
 	{
 		print_error("failure openning outfile");
@@ -68,14 +74,14 @@ static int	parsing_outfile(char **argv, t_file_fd *file_fd, int i)
 }
 
 static int	parsing_command_line(int argc, char **argv,
-		t_super_list **super_list)
+		t_super_list **super_list, int start)
 {
 	t_stack_string	*stack;
 	char			**tab;
 	int				i;
 
 	tab = NULL;
-	i = 2;
+	i = start;
 	while (i < argc - 1)
 	{
 		if (check_nb_quote(argv[i], *super_list))
