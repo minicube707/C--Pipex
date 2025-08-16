@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_argument.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:23:06 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/16 00:09:01 by florent          ###   ########.fr       */
+/*   Updated: 2025/08/16 13:46:07 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	parsing_argument(int argc, char **argv, t_file_fd *file_fd,
 {
 	int	start;
 
-	if ((ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) == 0 && argc < 6) || argc < 5)
+	if ((ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) == 0 && argc < 6)
+		|| argc < 5)
 	{
 		print_error("insufficient number of argument");
 		return (1);

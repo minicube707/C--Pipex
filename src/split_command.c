@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 15:04:20 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/16 00:06:47 by florent          ###   ########.fr       */
+/*   Updated: 2025/08/16 13:46:02 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ static t_stack_string	*split_command_loop(t_stack_string *stack, char *tmp)
 		res.string2 = get_before_sep(tmp, &new_tmp.string2, ' ');
 		free(tmp);
 		if (copy_mode || ft_strlen(res.string1) < ft_strlen(res.string2))
-			tmp = split_command_if(&stack, res.string1, new_tmp.string1, &copy_mode);
+			tmp = split_command_if(&stack, res.string1, new_tmp.string1,
+					&copy_mode);
 		else
 			tmp = split_command_else(&stack, res.string2, new_tmp.string2);
 		clear(res.string1, res.string2, new_tmp.string1, new_tmp.string2);

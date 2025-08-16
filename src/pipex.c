@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 23:31:15 by florent           #+#    #+#             */
-/*   Updated: 2025/08/16 00:43:17 by florent          ###   ########.fr       */
+/*   Updated: 2025/08/16 13:46:19 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ static int	parsing1(t_stack_string **stack_env, char **envp)
 	return (0);
 }
 
-static int	parsing3(t_stack_string **stack_env, t_super_list **super_list, t_file_fd *file_fd)
+static int	parsing3(t_stack_string **stack_env, t_super_list **super_list,
+		t_file_fd *file_fd)
 {
-	if (parsing_command(stack_env, super_list))
+	if (parsing_command(stack_env, super_list, file_fd))
 	{
 		close(file_fd->fdin);
 		close(file_fd->fdout);
@@ -44,7 +45,7 @@ int	main(int argc, char **argv, char **envp)
 	t_super_list	*super_list;
 	t_stack_string	*stack_env;
 	t_file_fd		file_fd;
-	
+
 	super_list = NULL;
 	stack_env = NULL;
 	stack_env = new_stack();
@@ -58,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	if (parsing3(&stack_env, &super_list, &file_fd))
 		return (-1);
-	execute_all(&super_list, envp, &file_fd);
+	execute_all(&super_list, envp);
 	clear(super_list, stack_env);
 	return (0);
 }

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florent <florent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 00:27:38 by florent           #+#    #+#             */
-/*   Updated: 2025/08/16 00:44:08 by florent          ###   ########.fr       */
+/*   Updated: 2025/08/16 13:45:41 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "libft.h"
 # include "get_next_line_bonus.h"
+# include "libft.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -37,8 +37,8 @@ typedef struct s_stack_string
 
 typedef struct s_file_fd
 {
-	int					fdin;
-	int					fdout;
+	int						fdin;
+	int						fdout;
 }							t_file_fd;
 
 typedef struct s_two_string
@@ -51,6 +51,7 @@ typedef struct s_super_list
 {
 	char					**tab_string;
 	int						mypipe[2];
+	struct s_file_fd		*file_fd;
 	struct s_super_list		*next;
 
 }							t_super_list;
@@ -88,18 +89,18 @@ int							parsing_environnement(t_stack_string **stack,
 								char **envp, char *var);
 
 /*Parsing Argument*/
-int							parsing_argument(int argc, char **argv, t_file_fd *file_fd,
-							t_super_list **super_list);
+int							parsing_argument(int argc, char **argv,
+								t_file_fd *file_fd, t_super_list **super_list);
 
 /*Parsing Command*/
 int							parsing_command(t_stack_string **stack_env,
-								t_super_list **super_list);
+								t_super_list **super_list, t_file_fd *file_fd);
 
 /*Check Command*/
 int							check_command(t_stack_string **stack, char **tab);
 
 /*Execute*/
-int							execute_all(t_super_list **super_list, char **envp, t_file_fd *file);
+int							execute_all(t_super_list **super_list, char **envp);
 
 /*Check_Nb_Quote*/
 int							count_nb_quote(char *string);
@@ -120,6 +121,7 @@ void						print_error_unknow_cmd(char *string);
 void						copy_pipe(int copy[2], int tab[2]);
 
 /*Here Doc*/
-int							here_doc(t_file_fd *file_fd, char *limiter, int *start);
+int							here_doc(t_file_fd *file_fd, char *limiter,
+								int *start);
 
 #endif

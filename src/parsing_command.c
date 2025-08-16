@@ -6,13 +6,14 @@
 /*   By: fmotte <fmotte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 23:37:38 by fmotte            #+#    #+#             */
-/*   Updated: 2025/08/13 10:24:47 by fmotte           ###   ########.fr       */
+/*   Updated: 2025/08/16 13:45:48 by fmotte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	parsing_command(t_stack_string **stack_env, t_super_list **super_list)
+int	parsing_command(t_stack_string **stack_env, t_super_list **super_list,
+		t_file_fd *file_fd)
 {
 	t_super_list	*tmp;
 	int				len;
@@ -27,6 +28,7 @@ int	parsing_command(t_stack_string **stack_env, t_super_list **super_list)
 			clear_super_list(*super_list);
 			return (1);
 		}
+		tmp->file_fd = file_fd;
 		tmp = tmp->next;
 	}
 	if (lenght_super_list(*super_list) < 2)
