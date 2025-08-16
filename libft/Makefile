@@ -1,5 +1,15 @@
+# =======================================
+#            MAKEFILE PROJET
+# =======================================
+
+# =======================================
+#                FLAGS
+# =======================================
 CC = cc -Wall -Wextra -Werror -MMD -MP
 
+# =======================================
+#              FILE
+# =======================================
 FILE_NAMES = ft_atoi \
 		ft_bzero \
 		ft_calloc \
@@ -35,6 +45,10 @@ FILE_NAMES = ft_atoi \
 		ft_tolower \
 		ft_toupper      
 
+
+# =======================================
+#              VARIABLE
+# =======================================	
 SRC_PATH = src
 OBJ_PATH = obj
 HEA_PATH = include
@@ -47,7 +61,26 @@ HEA_FILES = $(HEA_PATH)/libft.h
 INCLUDE = -I $(HEA_PATH)
 
 NAME = libft.a
+NAME_FOLDER := $(shell basename $(CURDIR))
 
+MAKEFLAGS += --no-print-directory
+
+# =======================================
+#            COULOUR
+# =======================================
+RESET       = \033[0m
+BOLD        = \033[1m
+RED         = \033[31m
+GREEN       = \033[32m
+YELLOW      = \033[38;5;227m
+BLUE        = \033[38;5;26m
+MANGENTA    = \033[35m
+CYAN        = \033[38;5;51m
+
+
+# =======================================
+#              RULES
+# =======================================
 .PHONY: all clean fclean re
 
 all : $(NAME)
@@ -56,21 +89,28 @@ $(OBJ_PATH) :
 	mkdir -p $(OBJ_PATH)
 
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c $(HEA_FILES) | $(OBJ_PATH)
-	$(CC) $(INCLUDE) -c $< -o $@
+	@echo "$(BLUE)[Compilation]$(RESET) $<"
+	@$(CC) $(INCLUDE) -O3 -c $< -o $@
 
-$(NAME) : $(OBJ_FILES)
-	ar rcs $(NAME) $(OBJ_FILES)
-
+$(NAME) : intro $(OBJ_FILES)
+	@echo "$(CYAN)$(NAME_FOLDER): [ARCHIVAGE]$(RESET): $(NAME)"
+	@ar rcs $(NAME) $(OBJ_FILES)
 
 clean :
-	rm -f $(OBJ_FILES) $(DEP_FILES)
-	
+	@echo "\n$(RED)$(NAME_FOLDER): 🧹 Suppression des fichiers objets...$(RESET)"
+	@rm -f $(OBJ_FILES) $(DEP_FILES)
+	@echo "$(GREEN)$(NAME_FOLDER): ✅ Fichiers supprimés.$(RESET)"
 
 fclean : clean
-	rm -f $(NAME) 
+	@echo "\n$(RED)$(NAME_FOLDER): 🧹 Suppression de l'archive...$(RESET)"
+	@rm -f $(NAME)
+	@echo "$(GREEN)$(NAME_FOLDER): ✅ Archive supprimée.$(RESET)"
 
 
 re : fclean all
+
+intro :
+	@printf "\n$(MANGENTA)📦 Compilation de $(shell basename $(CURDIR))$(RESET)\n"
 
 # Inclusion automatique des fichiers .d s’ils existent
 -include $(DEP_FILES)
